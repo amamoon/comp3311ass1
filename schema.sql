@@ -22,7 +22,7 @@ create table Users (
 	is_admin		AdminPrivelege,
 	member_of		serial,
 	primary key 	(id),
-	foreign key		(member_of) references Groups(id),
+	foreign key		(member_of) references Groups(id)
 );
 
 create table Groups (
@@ -30,7 +30,7 @@ create table Groups (
 	name        	text not null,
 	owned_by		serial,
 	primary key 	(id),
-	foreign key		(owned_by) references Users(id),
+	foreign key		(owned_by) references Users(id)
 );
 
 create table Calendars(
@@ -42,7 +42,7 @@ create table Calendars(
 	subscribe_color text,
 	owned_by		serial,
 	primary key		(id),
-	foreign key		(owned_by) references Users(id),
+	foreign key		(owned_by) references Users(id)
 );
 
 
@@ -56,7 +56,7 @@ create table Events(
 	created_by		serial not null,
 	part_of			serial not null,
 	foreign key		(created_by) references Users(id),
-	foreign key		(part_of) references Calendars(id),
+	foreign key		(part_of) references Calendars(id)
 );
 
 
