@@ -21,8 +21,8 @@ create table Users (
 	password		text not null,
 	is_admin		AdminPrivelege,
 	member_of		serial,
-	primary key 	(id),
-	foreign key		(member_of) references Groups(id)
+	primary key 	(id)
+--	foreign key		(member_of) references Groups(id)
 );
 
 create table Groups (
@@ -133,6 +133,6 @@ create table Monthly_by_Day_Events (
 
 
 
-
+alter table Users add foreign key (member_of) references Groups(id);
 
 -- etc. etc. etc.
