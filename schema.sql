@@ -105,7 +105,7 @@ create table Spanning_Events (
 create table Recurring_Events (
 	id				serial,
 	start_date		date not null,
-	end_date		date,
+	end_date		date null,
 	ntimes			integer not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
@@ -136,7 +136,7 @@ create table Monthly_by_Date_Events (
 
 create table Annual_Events (
 	id				serial,
-	date			date,
+	date			date not null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
