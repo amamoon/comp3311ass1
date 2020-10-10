@@ -14,7 +14,7 @@ create type DayOfWeekType as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
 
 -- Tables
 
-create table Users (
+create table Users(
 	id          	serial,
 	email       	text not null unique,
 	name			text not null,
@@ -25,7 +25,7 @@ create table Users (
 	foreign key		(member_of) references Groups(id)
 );
 
-create table Groups (
+create table Groups(
 	id          	serial,
 	name        	text not null,
 	owned_by		serial,
