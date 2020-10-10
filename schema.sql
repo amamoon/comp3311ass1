@@ -76,63 +76,61 @@ create table Events (
 
 create table Alarms (
 	event_id		serial references Events(id),
-	time_before		integer,
+	time_before		integer not null,
 	primary key		(event_id, time_before)
 );
 
 create table Invites (
-	id 				serial,
 	event_id		serial not null,
 	invited_person	serial not null,
 	status			InviteStatus not null default 'invited',
-	primary key 	(id),
 	foreign key		(event_id) references Events(id),
 	foreign key		(invited_person) references Users(id)
 );
 
 create table One_Day_Events (
 	id				serial,
-	date_of_event	date,
+	date			date not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
 );
 
 create table Spanning_Events (
 	id				serial,
-	start_date		date,
-	end_date		date,
+	start_date		date not null,
+	end_date		date not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
 );
 
 create table Recurring_Events (
 	id				serial,
-	start_date		date,
+	start_date		date not null,
 	end_date		date,
-	no_of_repeats	integer,
+	ntimes			integer not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
 );
 
 create table Weekly_Events (
 	id				serial,
-	day_of_week		DayOfWeekType,
-	frequency		integer,
+	day_of_week		DayOfWeekType not null,
+	frequency		integer not null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
 
 create table Monthly_by_Day_Events (
 	id				serial,
-	day_of_week		DayOfWeekType,
-	week_in_month	integer check (week_in_month between 1 and 5),
+	day_of_week		DayOfWeekType not null,
+	week_in_month	integer not null check (week_in_month between 1 and 5),
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
 
 create table Monthly_by_Date_Events (
 	id				serial,
-	date_in_month	integer check (date_in_month between 1 and 31),
+	date_in_month	integer not null check (date_in_month between 1 and 31),
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
