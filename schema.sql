@@ -117,7 +117,7 @@ create table Monthly_by_Day_Events (
 	foreign key		(id) references Recurring_Events(id)
 );
 
-create table Monthly_by_Day_Events (
+create table Monthly_by_Date_Events (
 	id				serial,
 	date_in_month	integer check (date_in_month between 1 and 31),
 	primary key		(id),
@@ -125,7 +125,7 @@ create table Monthly_by_Day_Events (
 );
 
 
-create table Monthly_by_Day_Events (
+create table Annual_Events (
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
