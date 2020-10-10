@@ -61,10 +61,10 @@ create table Subscribers (
 
 create table Events (
 	id				serial,
-	title			text,
+	title			text not null,
 	start_time		time not null,
 	visibility 		VisibilityType not null default 'public',
-	location		text not null,
+	location		text,
 	end_time		time,
 	created_by		serial not null,
 	part_of			serial not null,
