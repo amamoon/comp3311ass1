@@ -42,7 +42,7 @@ create table Calendars (
 --	subscribe_color text,
 	owner			serial not null,
 	primary key		(id),
-	foreign key		(owned_by) references Users(id)
+	foreign key		(owner) references Users(id)
 );
 
 create table Accessibilities (
