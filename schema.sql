@@ -55,6 +55,7 @@ create table Events (
 	end_time		time,
 	created_by		serial not null,
 	part_of			serial not null,
+	primary key		(id),
 	foreign key		(created_by) references Users(id),
 	foreign key		(part_of) references Calendars(id)
 );
