@@ -111,18 +111,16 @@ create table Weekly_Events(
 create table Monthly_by_Day_Events(
 	id				serial,
 	day_of_week		DayOfWeekType,
-	week_in_month	integer,
+	week_in_month	integer check (week_in_month between 1 and 5),
 	primary key		(id),
-	foreign key		(id) references Recurring_Events(id),
-	Constraint valid_week check(week_in_month >= 1  && week_in_month =< 5)
+	foreign key		(id) references Recurring_Events(id)
 );
 
 create table Monthly_by_Day_Events(
 	id				serial,
-	date_in_month	integer,
+	date_in_month	integer check (date_in_month between 1 and 31),
 	primary key		(id),
-	foreign key		(id) references Recurring_Events(id),
-	Constraint valid_date check(date_in_month >= 1  && date_in_month =< 31)
+	foreign key		(id) references Recurring_Events(id)
 );
 
 
