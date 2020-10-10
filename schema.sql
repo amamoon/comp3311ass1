@@ -8,7 +8,7 @@ create type AccessibilityType as enum ('read-write','read-only','none');
 create type InviteStatus as enum ('invited','accepted','declined');
 -- create type AdminPrivelege as enum ('admin','regular-user');
 create type VisibilityType as enum ('public', 'private');
-create type DayOfWeekType as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
+create type dow as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
 
 -- add more types/domains if you want
 
