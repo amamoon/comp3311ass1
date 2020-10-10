@@ -14,7 +14,7 @@ create type DayOfWeekType as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
 
 -- Tables
 
-create table Users(
+create table Users (
 	id          	serial,
 	email       	text not null unique,
 	name			text not null,
@@ -25,7 +25,7 @@ create table Users(
 	foreign key		(member_of) references Groups(id)
 );
 
-create table Groups(
+create table Groups (
 	id          	serial,
 	name        	text not null,
 	owned_by		serial,
@@ -33,7 +33,7 @@ create table Groups(
 	foreign key		(owned_by) references Users(id)
 );
 
-create table Calendars(
+create table Calendars (
 	id				serial,
 	name			text,
 	color			text not null,
@@ -46,7 +46,7 @@ create table Calendars(
 );
 
 
-create table Events(
+create table Events (
 	id				serial,
 	title			text,
 	start_time		time,
@@ -60,13 +60,13 @@ create table Events(
 );
 
 
-create table Alarms(
+create table Alarms (
 	event_id		serial references Events(id),
 	time_before		integer,
 	primary key		(event_id, time_before)
 );
 
-create table Invites(
+create table Invites (
 	id 				serial,
 	event_id		serial not null,
 	invited_person	serial not null,
@@ -76,14 +76,14 @@ create table Invites(
 	foreign key		(invited_person) references Users(id)
 );
 
-create table One_Day_Events(
+create table One_Day_Events (
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
 	foreign key		(id) references Events(id)
 );
 
-create table Spanning_Events(
+create table Spanning_Events (
 	id				serial,
 	start_date		date,
 	end_date		date,
@@ -91,7 +91,7 @@ create table Spanning_Events(
 	foreign key		(id) references Events(id)
 );
 
-create table Recurring_Events(
+create table Recurring_Events (
 	id				serial,
 	start_date		date,
 	end_date		date,
@@ -100,7 +100,7 @@ create table Recurring_Events(
 	foreign key		(id) references Events(id)
 );
 
-create table Weekly_Events(
+create table Weekly_Events (
 	id				serial,
 	day_of_week		DayOfWeekType,
 	frequency		integer,
@@ -108,7 +108,7 @@ create table Weekly_Events(
 	foreign key		(id) references Recurring_Events(id)
 );
 
-create table Monthly_by_Day_Events(
+create table Monthly_by_Day_Events (
 	id				serial,
 	day_of_week		DayOfWeekType,
 	week_in_month	integer check (week_in_month between 1 and 5),
@@ -116,7 +116,7 @@ create table Monthly_by_Day_Events(
 	foreign key		(id) references Recurring_Events(id)
 );
 
-create table Monthly_by_Day_Events(
+create table Monthly_by_Day_Events (
 	id				serial,
 	date_in_month	integer check (date_in_month between 1 and 31),
 	primary key		(id),
@@ -124,7 +124,7 @@ create table Monthly_by_Day_Events(
 );
 
 
-create table Monthly_by_Day_Events(
+create table Monthly_by_Day_Events (
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
