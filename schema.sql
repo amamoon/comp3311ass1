@@ -6,7 +6,7 @@
 
 create type AccessibilityType as enum ('read-write','read-only','none');
 create type InviteStatus as enum ('invited','accepted','declined');
-create type AdminPrivelege as enum ('admin','regular-user');
+-- create type AdminPrivelege as enum ('admin','regular-user');
 create type VisibilityType as enum ('public', 'private');
 create type DayOfWeekType as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
 
@@ -18,9 +18,9 @@ create table Users (
 	id          	serial,
 	email       	text not null unique,
 	name			text not null,
-	password		text not null,
-	is_admin		AdminPrivelege,
-	member_of		serial,
+	passwd			text not null,
+	is_admin		boolean default false,
+	member			serial,
 	primary key 	(id)
 --	foreign key		(member_of) references Groups(id)
 );
@@ -28,23 +28,36 @@ create table Users (
 create table Groups (
 	id          	serial,
 	name        	text not null,
-	owned_by		serial,
+	owner			serial not null,
 	primary key 	(id),
-	foreign key		(owned_by) references Users(id)
+	foreign key		(owner) references Users(id)
 );
 
 create table Calendars (
 	id				serial,
 	name			text,
 	color			text not null,
-	default_access 	AccessibilityType not null,
-	accessibility 	AccessibilityType,
-	subscribe_color text,
-	owned_by		serial,
+	default_access 	AccessibilityType not null default 'read-write',
+--	accessibility 	AccessibilityType,
+--	subscribe_color text,
+	owner			serial not null,
 	primary key		(id),
 	foreign key		(owned_by) references Users(id)
 );
 
+create table Accessibilities (
+	calendar_id		serial references Calendars(id),
+	user_id			serial references Users(id),
+	accessibility 	AccessibilityType,
+	primary key		(user_id, calendar_id)
+);
+
+create table Subscribers (
+	calendar_id		serial references Calendars(id),
+	user_id			serial references Users(id),
+	color			text,
+	primary key		(calendar_id, user_id)
+);
 
 create table Events (
 	id				serial,
@@ -71,7 +84,7 @@ create table Invites (
 	id 				serial,
 	event_id		serial not null,
 	invited_person	serial not null,
-	status			InviteStatus,
+	status			InviteStatus not null default 'invited',
 	primary key 	(id),
 	foreign key		(event_id) references Events(id),
 	foreign key		(invited_person) references Users(id)
@@ -124,15 +137,12 @@ create table Monthly_by_Date_Events (
 	foreign key		(id) references Recurring_Events(id)
 );
 
-
 create table Annual_Events (
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
-
-
 
 alter table Users add foreign key (member_of) references Groups(id);
 
