@@ -48,7 +48,7 @@ create table Calendars (
 create table Accessibilities (
 	calendar_id		serial references Calendars(id),
 	user_id			serial references Users(id),
-	accessibility 	AccessibilityType,
+	accessibility 	AccessibilityType not null,
 	primary key		(user_id, calendar_id)
 );
 
@@ -62,8 +62,8 @@ create table Subscribers (
 create table Events (
 	id				serial,
 	title			text,
-	start_time		time,
-	visibility 		VisibilityType,
+	start_time		time not null,
+	visibility 		VisibilityType not null defualt 'public',
 	location		text,
 	end_time		time,
 	created_by		serial not null,
@@ -73,19 +73,18 @@ create table Events (
 	foreign key		(part_of) references Calendars(id)
 );
 
-
 create table Alarms (
 	event_id		serial references Events(id),
-	time_before		integer not null,
+	time_before		time not null,
 	primary key		(event_id, time_before)
 );
 
 create table Invites (
 	event_id		serial not null,
-	invited_person	serial not null,
+	user_id			serial not null,
 	status			InviteStatus not null default 'invited',
 	foreign key		(event_id) references Events(id),
-	foreign key		(invited_person) references Users(id)
+	foreign key		(user_id) references Users(id)
 );
 
 create table One_Day_Events (
@@ -114,7 +113,7 @@ create table Recurring_Events (
 
 create table Weekly_Events (
 	id				serial,
-	day_of_week		DayOfWeekType not null,
+	day_of_week		dow not null,
 	frequency		integer not null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
@@ -122,8 +121,8 @@ create table Weekly_Events (
 
 create table Monthly_by_Day_Events (
 	id				serial,
-	day_of_week		DayOfWeekType not null,
-	week_in_month	integer not null check (week_in_month between 1 and 5),
+	day_of_week		dow not null,
+	week_in_month	wim not null check (week_in_month between 1 and 5),
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
@@ -137,7 +136,7 @@ create table Monthly_by_Date_Events (
 
 create table Annual_Events (
 	id				serial,
-	date_of_event	date,
+	date			date,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
