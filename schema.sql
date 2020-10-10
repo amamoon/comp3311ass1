@@ -63,7 +63,7 @@ create table Events (
 	id				serial,
 	title			text,
 	start_time		time not null,
-	visibility 		VisibilityType not null defualt 'public',
+	visibility 		VisibilityType not null default 'public',
 	location		text,
 	end_time		time,
 	created_by		serial not null,
