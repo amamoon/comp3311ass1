@@ -61,10 +61,10 @@ create table Subscribers (
 
 create table Events (
 	id				serial,
-	title			text,
+	title			text not null,
 	start_time		time not null,
 	visibility 		VisibilityType not null default 'public',
-	location		text,
+	location		text not null,
 	end_time		time,
 	created_by		serial not null,
 	part_of			serial not null,
@@ -105,7 +105,7 @@ create table Spanning_Events (
 create table Recurring_Events (
 	id				serial,
 	start_date		date not null,
-	end_date		date null,
+	end_date		date not null,
 	ntimes			integer not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
