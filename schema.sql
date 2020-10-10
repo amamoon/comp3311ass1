@@ -144,6 +144,6 @@ create table Annual_Events (
 	foreign key		(id) references Recurring_Events(id)
 );
 
-alter table Users add foreign key (member_of) references Groups(id);
+alter table Users add foreign key (member) references Groups(id);
 
 -- etc. etc. etc.
