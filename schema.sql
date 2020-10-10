@@ -18,11 +18,11 @@ create table Users (
 	id          	serial,
 	email       	text not null unique,
 	name			text not null,
-	password		not null,
+	password		text not null,
 	is_admin		AdminPrivelege,
 	member_of		serial,
 	primary key 	(id),
-	foreign key		(member_of) references Groups(id)
+	foreign key		(member_of) references Groups(id),
 );
 
 create table Groups (
@@ -30,7 +30,7 @@ create table Groups (
 	name        	text not null,
 	owned_by		serial,
 	primary key 	(id),
-	foreign key		(owned_by) references Users(id)
+	foreign key		(owned_by) references Users(id),
 );
 
 create table Calendars(
@@ -42,7 +42,7 @@ create table Calendars(
 	subscribe_color text,
 	owned_by		serial,
 	primary key		(id),
-	foreign key		(owned_by) references Users(id)
+	foreign key		(owned_by) references Users(id),
 );
 
 
@@ -56,7 +56,7 @@ create table Events(
 	created_by		serial not null,
 	part_of			serial not null,
 	foreign key		(created_by) references Users(id),
-	foreign key		(part_of) references Calendars(id)
+	foreign key		(part_of) references Calendars(id),
 );
 
 
@@ -80,7 +80,7 @@ create table One_Day_Events(
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
-	foreign key		(id) references Events(id)
+	foreign key		(id) references Events(id),
 );
 
 create table Spanning_Events(
@@ -88,7 +88,7 @@ create table Spanning_Events(
 	start_date		date,
 	end_date		date,
 	primary key		(id),
-	foreign key		(id) references Events(id)
+	foreign key		(id) references Events(id),
 );
 
 create table Recurring_Events(
@@ -97,7 +97,7 @@ create table Recurring_Events(
 	end_date		date,
 	no_of_repeats	integer,
 	primary key		(id),
-	foreign key		(id) references Events(id)
+	foreign key		(id) references Events(id),
 );
 
 create table Weekly_Events(
@@ -105,7 +105,7 @@ create table Weekly_Events(
 	day_of_week		DayOfWeekType,
 	frequency		integer,
 	primary key		(id),
-	foreign key		(id) references Recurring_Events(id)
+	foreign key		(id) references Recurring_Events(id),
 );
 
 create table Monthly_by_Day_Events(
@@ -114,7 +114,7 @@ create table Monthly_by_Day_Events(
 	week_in_month	integer,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id),
-	Constraint valid_week check(week_in_month >= 1  && week_in_month <= 5)
+	Constraint valid_week check(week_in_month >= 1  && week_in_month =< 5),
 );
 
 create table Monthly_by_Day_Events(
@@ -122,7 +122,7 @@ create table Monthly_by_Day_Events(
 	date_in_month	integer,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id),
-	Constraint valid_date check(date_in_month >= 1  && date_in_month <= 31)
+	Constraint valid_date check(date_in_month >= 1  && date_in_month =< 31),
 );
 
 
@@ -130,7 +130,7 @@ create table Monthly_by_Day_Events(
 	id				serial,
 	date_of_event	date,
 	primary key		(id),
-	foreign key		(id) references Recurring_Events(id)
+	foreign key		(id) references Recurring_Events(id),
 );
 
 
