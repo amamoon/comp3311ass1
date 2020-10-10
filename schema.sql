@@ -122,7 +122,7 @@ create table Weekly_Events (
 create table Monthly_by_Day_Events (
 	id				serial,
 	day_of_week		dow not null,
-	week_in_month	wim not null check (week_in_month between 1 and 5),
+	week_in_month	integer not null check (week_in_month between 1 and 5),
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
