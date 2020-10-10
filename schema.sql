@@ -19,7 +19,7 @@ create table Users (
 	email       	text not null unique,
 	name			text not null,
 	passwd			text not null,
-	is_admin		boolean default false,
+	is_admin		boolean not null default false,
 	member			serial,
 	primary key 	(id)
 --	foreign key		(member_of) references Groups(id)
@@ -35,7 +35,7 @@ create table Groups (
 
 create table Calendars (
 	id				serial,
-	name			text,
+	name			text not null,
 	color			text not null,
 	default_access 	AccessibilityType not null default 'read-write',
 --	accessibility 	AccessibilityType,
