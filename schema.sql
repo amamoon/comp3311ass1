@@ -65,7 +65,7 @@ create table Events (
 	start_time		time not null,
 	visibility 		VisibilityType not null default 'public',
 	location		text not null,
-	end_time		time,
+	end_time		time not null,
 	created_by		serial not null,
 	part_of			serial not null,
 	primary key		(id),
@@ -105,7 +105,7 @@ create table Spanning_Events (
 create table Recurring_Events (
 	id				serial,
 	start_date		date not null,
-	end_date		date not null,
+	end_date		date null,
 	ntimes			integer not null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
