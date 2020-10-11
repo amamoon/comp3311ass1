@@ -110,9 +110,9 @@ create table Spanning_Events (
 
 create table Recurring_Events (
 	id				serial,
-	start_date		date null,
+	start_date		date not null,
 	end_date		date null,
-	ntimes			integer not null,
+	ntimes			integer null,
 	primary key		(id),
 	foreign key		(id) references Events(id)
 );
