@@ -81,7 +81,7 @@ create table Events (
 
 create table Alarms (
 	event_id		serial references Events(id),
-	time_before		time not null,
+	time_before		timestamp not null,
 	primary key		(event_id, time_before)
 );
 
@@ -119,8 +119,8 @@ create table Recurring_Events (
 
 create table Weekly_Events (
 	id				serial,
-	day_of_week		varchar(3) not null,
-	frequency		integer not null,
+	day_of_week		dow not null,
+	frequency		integer null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
 );
