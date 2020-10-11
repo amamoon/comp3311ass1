@@ -81,8 +81,8 @@ create table Events (
 
 create table Alarms (
 	event_id		serial references Events(id),
-	time_before		integer,
-	primary key		(event_id, time_before)
+	timer			integer,
+	primary key		(event_id)
 );
 
 create table Invites (
