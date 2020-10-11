@@ -119,7 +119,7 @@ create table Recurring_Events (
 
 create table Weekly_Events (
 	id				serial,
-	day_of_week		dow not null,
+	day_of_week		dow null,
 	frequency		integer null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
