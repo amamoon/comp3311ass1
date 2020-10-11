@@ -27,7 +27,7 @@ create table Users (
 
 create table Groups (
 	id          	serial,
-	name        	text not null,
+	name        	text not null unique,
 	owner			serial not null,
 	primary key 	(id),
 	foreign key		(owner) references Users(id)
@@ -81,8 +81,8 @@ create table Events (
 
 create table Alarms (
 	event_id		serial references Events(id),
-	timer			interval not null,
-	primary key		(event_id, timer)
+	alarm			interval not null,
+	primary key		(event_id, alarm)
 );
 
 create table Invites (
