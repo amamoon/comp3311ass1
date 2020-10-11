@@ -8,7 +8,7 @@ create type AccessibilityType as enum ('read-write','read-only','none');
 create type InviteStatus as enum ('invited','accepted','declined');
 -- create type AdminPrivelege as enum ('admin','regular-user');
 create type VisibilityType as enum ('public', 'private');
-create type dow as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
+create type WeekDay as enum ('Mon','Tue','Wed','Thur','Fri','Sat','Sun');
 
 -- add more types/domains if you want
 
@@ -119,7 +119,7 @@ create table Recurring_Events (
 
 create table Weekly_Events (
 	id				serial,
-	day_of_week		dow not null,
+	day_of_week		WeekDay not null,
 	frequency		integer not null,
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
@@ -127,7 +127,7 @@ create table Weekly_Events (
 
 create table Monthly_by_Day_Events (
 	id				serial,
-	day_of_week		dow not null,
+	day_of_week		WeekDay not null,
 	week_in_month	integer not null check (week_in_month between 1 and 5),
 	primary key		(id),
 	foreign key		(id) references Recurring_Events(id)
