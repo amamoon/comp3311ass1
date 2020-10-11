@@ -20,7 +20,7 @@ create table Users (
 	name			text not null,
 	passwd			text not null,
 	is_admin		boolean not null default false,
-	member			serial,
+--	member			serial,
 	primary key 	(id)
 --	foreign key		(member_of) references Groups(id)
 );
@@ -31,6 +31,12 @@ create table Groups (
 	owner			serial not null,
 	primary key 	(id),
 	foreign key		(owner) references Users(id)
+);
+
+create table Members (
+	group_id		serial,
+	user_id			serial,
+	primary key		(group_id, user_id)
 );
 
 create table Calendars (
@@ -62,7 +68,7 @@ create table Subscribers (
 create table Events (
 	id				serial,
 	title			text not null,
-	start_time		time not null,
+	start_time		time null,
 	visibility 		VisibilityType not null default 'public',
 	location		text,
 	end_time		time,
@@ -104,7 +110,7 @@ create table Spanning_Events (
 
 create table Recurring_Events (
 	id				serial,
-	start_date		date not null,
+	start_date		date null,
 	end_date		date null,
 	ntimes			integer not null,
 	primary key		(id),
@@ -141,6 +147,6 @@ create table Annual_Events (
 	foreign key		(id) references Recurring_Events(id)
 );
 
-alter table Users add foreign key (member) references Groups(id);
+--alter table Users add foreign key (member) references Groups(id);
 
 -- etc. etc. etc.
